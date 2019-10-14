@@ -1,0 +1,19 @@
+{% if instruction_text %}
+    <div>
+        <p>{{instruction_text}}"</p>
+        <form action="{{base_url}}">
+            <input type="text" name="id" value="{{instruction_id}}">   
+            <input type="submit" value="Accept">
+        </form>
+        <form action="{{base_url}}">
+            <input type="submit" value="Decline" >
+        </form>
+    </div>
+{% else %}
+    <div>
+        <form action="{{base_url}}/dashboard">
+            <input type="text" name="instruction" value="No instructions were provided for this task">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endif %}

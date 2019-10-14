@@ -9,6 +9,8 @@ services:
   cvat_db:
     container_name: cvat_db
     image: postgres:10.3-alpine
+    ports:
+      - "9432:5432"
     networks:
       default:
         aliases:
@@ -23,6 +25,8 @@ services:
   cvat_redis:
     container_name: cvat_redis
     image: redis:4.0.5-alpine
+    ports:
+      - "9379:6379"
     networks:
       default:
         aliases:

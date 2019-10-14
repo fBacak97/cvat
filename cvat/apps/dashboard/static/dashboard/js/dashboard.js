@@ -185,7 +185,7 @@ class TaskView {
 
         const jobsContainer = $('<table class="dashboardJobList regular">');
         for (const job of this._task.jobs) {
-            const link = `${baseURL}?id=${job.id}`;
+            const link = `${baseURL}instructions/${job.id}`;
             jobsContainer.append($(`<tr> <td> <a href="${link}"> ${link} </a> </td> </tr>`));
         }
 
