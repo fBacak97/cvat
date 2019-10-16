@@ -57,6 +57,7 @@ services:
         OPENVINO_TOOLKIT: "no"
     environment:
       DJANGO_MODWSGI_EXTRA_ARGS: ""
+      ALLOWED_HOSTS: "*"
       UI_PORT: 9080
 
     volumes:

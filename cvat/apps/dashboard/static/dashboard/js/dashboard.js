@@ -364,6 +364,7 @@ class DashboardView {
         const customStopFrame = $('#dashboardCustomStop');
         const frameFilterInput = $('#dashboardFrameFilter');
         const customFrameFilter = $('#dashboardCustomFilter');
+        const instructionInput = $('#dashboardInstructionInput');
 
         const taskMessage = $('#dashboardCreateTaskMessage');
         const submitCreate = $('#dashboardSubmitTask');
@@ -371,6 +372,7 @@ class DashboardView {
 
         let name = nameInput.prop('value');
         let labels = labelsInput.prop('value');
+        let instructions = instructionInput.prop('value');
         let bugTrackerLink = bugTrackerInput.prop('value').trim();
         let source = 'local';
         let zOrder = false;
@@ -410,6 +412,10 @@ class DashboardView {
             }
         }
 
+        function validateInstructions() {
+            return (instructions.length < 256)
+        }
+
         function validateBugTracker() {
             return !bugTrackerLink || !!bugTrackerLink.match(/^http[s]?/);
         }
@@ -441,6 +447,10 @@ class DashboardView {
         labelsInput.on('change', (e) => {
             labels = e.target.value;
         });
+
+        instructionInput.on('change', (e) => {
+            instructions = e.target.value;
+        })
 
         localSourceRadio.on('click', () => {
             if (source === 'local') {
@@ -611,6 +621,12 @@ class DashboardView {
                 return;
             }
 
+            if (!validateInstructions()){
+                taskMessage.css('color','red');
+                taskMessage.text('Instructions are too long');
+                return;
+            }
+
             if (!validateSegmentSize()) {
                 taskMessage.css('color', 'red');
                 taskMessage.text('Segment size out of range');
@@ -663,6 +679,7 @@ class DashboardView {
 
             const description = {
                 name,
+                instructions,
                 labels: LabelsInfo.deserialize(labels),
                 image_quality: compressQuality,
                 z_order: zOrder,
